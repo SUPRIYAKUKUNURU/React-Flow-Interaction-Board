@@ -1,0 +1,50 @@
+.app {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-left: 1px solid #ccc;
+}
+
+.dndnode {
+  padding: 10px;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  background-color: white;
+  cursor: grab;
+}
+
+.reactflow-wrapper {
+  flex-grow: 1;
+  height: 100%;
+  position: relative;
+}
+
+.node.block-a {
+  background-color: lightblue;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.node.block-b {
+  background-color: lightgreen;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.context-menu {
+  position: absolute;
+  background-color: #fffae6;
+  border: 1px solid #d4af37;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
