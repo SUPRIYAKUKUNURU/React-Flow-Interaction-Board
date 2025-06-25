@@ -34,20 +34,17 @@ const App = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [contextMenu, setContextMenu] = useState(null);
   const reactFlowWrapper = useRef(null);
+  const invalidConnectionRef = useRef(false);
 
   const onConnect = useCallback(
     (params) => {
-      const sourceNode = nodes.find((n) => n.id === params.source);
-      const targetNode = nodes.find((n) => n.id === params.target);
-
-      if (sourceNode?.type === "blockA" && targetNode?.type === "blockB") {
+      if (!invalidConnectionRef.current) {
         setEdges((eds) => addEdge(params, eds));
       } else {
-        alert("❌ Only connections from Block A to Block B are allowed.");
-        return;
+        invalidConnectionRef.current = false;
       }
     },
-    [nodes, setEdges]
+    [setEdges]
   );
 
   const onDragOver = useCallback((event) => {
@@ -102,14 +99,26 @@ const App = () => {
           isValidConnection={({ source, target }) => {
             const sourceNode = nodes.find((n) => n.id === source);
             const targetNode = nodes.find((n) => n.id === target);
-            return sourceNode?.type === "blockA" && targetNode?.type === "blockB";
+            const isValid =
+              sourceNode?.type === "blockA" && targetNode?.type === "blockB";
+
+            if (!isValid) {
+              setTimeout(() => {
+                alert(" Only connections from Block A to Block B are allowed.");
+              }, 10);
+              invalidConnectionRef.current = true;
+            }
+
+            return isValid;
           }}
         >
           <MiniMap />
           <Controls />
           <Background />
         </ReactFlow>
-        {contextMenu && <ContextMenu position={contextMenu} onClose={closeContextMenu} />}
+        {contextMenu && (
+          <ContextMenu position={contextMenu} onClose={closeContextMenu} />
+        )}
       </div>
       <Sidebar />
     </div>
