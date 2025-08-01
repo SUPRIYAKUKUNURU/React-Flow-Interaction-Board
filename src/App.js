@@ -18,7 +18,7 @@ const nodeTypes = {
   blockA: ({ data }) => (
     <div className="node block-a">
       {data.label}
-      <Handle type="source" position={Position.Right} id="a" />
+      <Handle type="source" position={Position.Right} id = "a" />
     </div>
   ),
   blockB: ({ data }) => (
